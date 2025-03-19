@@ -4,12 +4,18 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
+    "chart.js": "^4.4.8",
     "cra-template-redux": "2.0.0",
+    "lucide-react": "^0.483.0",
     "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "react-scripts": "5.0.1",
-    "styled-components": "^6.1.16"
+    "recharts": "^2.15.1",
+    "styled-components": "^6.1.16",
+    "tailwindcss": "^4.0.14"
   },
   "scripts": {
     "start": "react-scripts start",
