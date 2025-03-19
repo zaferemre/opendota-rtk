@@ -1,8 +1,41 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setPlayerId } from "../features/counter/playerSlice";
-import PlayerCard from "./PlayerCard";
-import MatchCard from "./MatchCard";
+import styled from "styled-components";
+
+const Container = styled.div`
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: 4rem;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Input = styled.input`
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+`;
+
+const Button = styled.button`
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background: #0056b3;
+  }
+`;
 
 const PlayerSearchForm = () => {
   const [inputId, setInputId] = useState("");
@@ -15,28 +48,20 @@ const PlayerSearchForm = () => {
   };
 
   return (
-    <div className="p-4 border rounded-lg shadow-md w-96">
-      <h2 className="text-xl font-semibold mb-4">Search Dota Player</h2>
+    <Container>
+      <h2>Search Dota Player</h2>
       <h5>Neptune ID: 112456116</h5>
       <h5>MERTKD ID: 133349867</h5>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           type="text"
-          placeholder="112456116"
+          placeholder="Enter Player ID"
           value={inputId}
           onChange={(e) => setInputId(e.target.value)}
-          className="p-2 border rounded"
         />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Search
-        </button>
-      </form>
-      <PlayerCard />
-      <MatchCard />
-    </div>
+        <Button type="submit">Search</Button>
+      </Form>
+    </Container>
   );
 };
 
