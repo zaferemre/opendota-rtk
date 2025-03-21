@@ -146,7 +146,7 @@ const PlayerCard = () => {
   });
 
   const [page, setPage] = useState(1);
-  const matchesPerPage = 6;
+  const matchesPerPage = 4;
 
   // Reset page when new matches load
   useEffect(() => {

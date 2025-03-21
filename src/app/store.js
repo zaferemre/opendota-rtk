@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { opendotaApi } from "../services/playerProfile"; // Fixed path
+import { opendotaApi } from "../services/playerProfile";
 import counterReducer from "../features/counter/counterSlice";
 import playerReducer from "../features/counter/playerSlice";
-import matchReducer from "../features/counter/matchSlice";
+import matchReducer from "../features/counter/matchSlice"; // ✅ Now works as default import
 
 export const store = configureStore({
   reducer: {

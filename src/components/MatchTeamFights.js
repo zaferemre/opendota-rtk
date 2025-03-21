@@ -1,52 +1,89 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetMatchInfoQuery } from "../services/playerProfile";
 import styled from "styled-components";
+import { useGetMatchInfoQuery } from "../services/playerProfile";
+import {
+  setSelectedTeamfight,
+  setMatchData,
+} from "../features/counter/matchSlice";
 import TeamfightsCard from "./TeamfightsCard";
-import { setSelectedTeamfight } from "../features/counter/matchSlice";
+import TeamfightMap from "./TeamfightMap";
+import MatchGraphs from "./MatchGraphs";
 
 const Container = styled.div`
   max-width: 1200px;
-  margin: 20px auto;
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 32px auto;
+  padding: 24px;
+  background: #ffffffcc;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+const Title = styled.h2`
+  font-size: 1.5rem;
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const TopRow = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const LeftPane = styled.div`
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+`;
+
+const RightPane = styled.div`
+  flex: 2;
+  min-width: 500px;
 `;
 
 const MatchTeamfights = () => {
   const dispatch = useDispatch();
-  // Retrieve matchId from Redux as done before
   const matchId = useSelector((state) => state.match.selectedMatchId);
   const { data, error, isLoading } = useGetMatchInfoQuery(matchId, {
     skip: !matchId,
   });
 
-  if (!matchId) {
-    return <Container>Please select a match.</Container>;
-  }
-  if (isLoading) {
-    return <Container>Loading match details...</Container>;
-  }
-  if (error) {
-    return <Container>Error loading match details.</Container>;
-  }
+  useEffect(() => {
+    if (data) {
+      dispatch(setMatchData(data));
+    }
+  }, [data, dispatch]);
 
-  // Assume your API returns a "teamfights" array in the match data.
+  if (!matchId) return <Container> Please select a match. </Container>;
+  if (isLoading) return <Container> Loading match details... </Container>;
+  if (error) return <Container> Error loading match details. </Container>;
+
   const teamfights = data.teamfights || [];
-
-  // Dispatch the clicked teamfight into Redux
-  const handleTeamfightClick = (teamfight) => {
-    dispatch(setSelectedTeamfight(teamfight));
-  };
+  const allPlayers = data.players || [];
 
   return (
     <Container>
-      <h2>Match {matchId} Teamfights</h2>
+      <Title> Teamfights in Match# {matchId} </Title>{" "}
+      <TopRow>
+        <LeftPane>
+          <TeamfightMap teamfights={teamfights} />{" "}
+        </LeftPane>{" "}
+        <RightPane>
+          <MatchGraphs />
+        </RightPane>{" "}
+      </TopRow>{" "}
       <TeamfightsCard
         teamfights={teamfights}
-        onTeamfightClick={handleTeamfightClick}
-      />
+        allPlayers={allPlayers}
+        onTeamfightClick={(tf) => dispatch(setSelectedTeamfight(tf))}
+      />{" "}
     </Container>
   );
 };

@@ -3,9 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   selectedMatchId: null,
   selectedTeamfight: null,
+  hoveredTeamfightIndex: null,
+  matchData: null,
 };
 
-const matchSlice = createSlice({
+export const matchSlice = createSlice({
   name: "match",
   initialState,
   reducers: {
@@ -15,8 +17,14 @@ const matchSlice = createSlice({
     setSelectedTeamfight: (state, action) => {
       state.selectedTeamfight = action.payload;
     },
+    setHoveredTeamfightIndex: (state, action) => {
+      state.hoveredTeamfightIndex = action.payload;
+    },
     clearSelectedTeamfight: (state) => {
       state.selectedTeamfight = null;
+    },
+    setMatchData: (state, action) => {
+      state.matchData = action.payload;
     },
   },
 });
@@ -24,6 +32,9 @@ const matchSlice = createSlice({
 export const {
   setSelectedMatchId,
   setSelectedTeamfight,
+  setHoveredTeamfightIndex,
   clearSelectedTeamfight,
+  setMatchData,
 } = matchSlice.actions;
-export default matchSlice.reducer;
+
+export default matchSlice.reducer; // ✅ Default export the reducer
