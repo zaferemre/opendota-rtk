@@ -18,8 +18,23 @@ export const opendotaApi = createApi({
     getMatchInfo: builder.query({
       query: (id) => `/matches/${id}${API_KEY ? `?api_key=${API_KEY}` : ""}`,
     }),
+    searchPlayers: builder.query({
+      query: (name) => `/search?q=${encodeURIComponent(name)}${API_KEY ? `&api_key=${API_KEY}` : ""}`,
+    }),
+    getPeers: builder.query({
+      query: (id) => `/players/${id}/peers${API_KEY ? `?api_key=${API_KEY}` : ""}`,
+    }),
+    getHeroes: builder.query({
+      query: (id) => `/players/${id}/heroes${API_KEY ? `?api_key=${API_KEY}` : ""}`,
+    }),
   }),
 });
 
-export const { useGetUserQuery, useGetLastMatchesQuery, useGetMatchInfoQuery } =
-  opendotaApi;
+export const {
+  useGetUserQuery,
+  useGetLastMatchesQuery,
+  useGetMatchInfoQuery,
+  useSearchPlayersQuery,
+  useGetPeersQuery, 
+  useGetHeroesQuery 
+} = opendotaApi;

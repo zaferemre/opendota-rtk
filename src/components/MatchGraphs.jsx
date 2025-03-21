@@ -7,6 +7,7 @@ import {
   setHoveredTeamfightIndex,
 } from "../features/counter/matchSlice";
 import * as d3 from "d3";
+import { useParams } from "react-router-dom"; // <-- for route param
 
 const Container = styled.div`
   width: 100%;
@@ -28,7 +29,7 @@ const ChartWrapper = styled.div`
 
 const MatchGraphs = () => {
   const dispatch = useDispatch();
-  const matchId = useSelector((state) => state.match.selectedMatchId);
+  const { id: matchId } = useParams();
   const hoveredIndex = useSelector(
     (state) => state.match.hoveredTeamfightIndex
   );

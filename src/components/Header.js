@@ -152,11 +152,11 @@ export default function Header() {
       <ContentContainer>
         <Logo>more.dota</Logo>
         <DesktopNav>
-          <NavLink href="#" variant="green">
+          <NavLink href="/" variant="green">
             Ana Sayfa
           </NavLink>
-          <NavLink href="/hakkimizda">Hakkımızda</NavLink>
-          <NavLink href="#">ChiroBlog</NavLink>
+          <NavLink href="/profile">Profile</NavLink>
+          <NavLink href="/match">Match</NavLink>
         </DesktopNav>
         <MobileMenuButton onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={28} /> : <Menu size={28} />}

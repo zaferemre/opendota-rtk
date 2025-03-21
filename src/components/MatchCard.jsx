@@ -5,7 +5,7 @@ import { useGetMatchInfoQuery } from "../services/playerProfile";
 import itemIdtoName from "../utils/item_ids.json";
 import itemNametoImage from "../utils/items.json";
 import heroIdtoImg from "../utils/heroes.json";
-import LaneHeatmap from "./LaneHeatmap";
+import { useParams } from "react-router-dom"; // <-- for route param
 
 const cdnBase = "https://cdn.cloudflare.steamstatic.com";
 
@@ -109,7 +109,7 @@ const formatDuration = (seconds) => {
 };
 
 const MatchCard = () => {
-  const matchId = useSelector((state) => state.match?.selectedMatchId || "");
+  const { id: matchId } = useParams(); // ✅ Get matchId from URL
   const { data, error, isLoading } = useGetMatchInfoQuery(matchId, {
     skip: !matchId,
   });

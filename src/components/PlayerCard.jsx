@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom"; // <-- Get the :id from the route
 import {
   useGetUserQuery,
   useGetLastMatchesQuery,
@@ -132,8 +133,9 @@ const PaginationButton = styled.button`
 `;
 
 const PlayerCard = () => {
+  const { id: playerId } = useParams(); // ← Get the player ID from the URL
   const dispatch = useDispatch();
-  const playerId = useSelector((state) => state.player?.playerId || "");
+
   const { data, error, isLoading } = useGetUserQuery(playerId, {
     skip: !playerId,
   });

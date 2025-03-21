@@ -9,6 +9,7 @@ import {
 import TeamfightsCard from "./TeamfightsCard";
 import TeamfightMap from "./TeamfightMap";
 import MatchGraphs from "./MatchGraphs";
+import { useParams } from "react-router-dom"; // <-- for route param
 
 const Container = styled.div`
   max-width: 1200px;
@@ -50,7 +51,7 @@ const RightPane = styled.div`
 
 const MatchTeamfights = () => {
   const dispatch = useDispatch();
-  const matchId = useSelector((state) => state.match.selectedMatchId);
+  const { id: matchId } = useParams(); // ✅ Get matchId from URL
   const { data, error, isLoading } = useGetMatchInfoQuery(matchId, {
     skip: !matchId,
   });
