@@ -1,41 +1,25 @@
-import React from "react";
-import { Provider } from "react-redux";
+import React, { useRef, useEffect } from "react";
+import { Provider, useSelector } from "react-redux";
 import { store } from "../app/store";
 import styled from "styled-components";
-import PlayerSearchForm from "../components/PlayerSearchForm";
-import PlayerCard from "../components/PlayerCard";
-import MatchCard from "../components/MatchCard";
-import Header from "../components/Header";
-import MatchDetails from "../components/MatchDetails";
 import MatchTeamfights from "../components/MatchTeamFights";
 import TeamfightDetails from "../components/TeamfightDetails";
-import MatchGraphs from "../components/MatchGraphs";
-import { useParams } from "react-router-dom"; // <-- for route param
+import { useParams } from "react-router-dom";
 
-// Background Blur
 const Background = styled.div`
   position: fixed;
   inset: 0;
-  background-image: url("/wallpaper.png");
+  background-image: url("/background.jpg");
   background-size: cover;
   background-position: center;
   filter: brightness(0.8);
   z-index: -1;
 `;
 
-// Overall page container
 const PageContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
-`;
-
-// Card Layouts
-const Grid2 = styled.div`
-  display: flex;
-  max-width: 100%;
-  gap: 20px;
-  margin-bottom: 32px;
 `;
 
 const VerticalStack = styled.div`
@@ -45,19 +29,39 @@ const VerticalStack = styled.div`
   flex: 1;
 `;
 
-function Match() {
+function MatchContent({ id }) {
+  const teamfightRef = useRef(null);
+  const selectedTeamfight = useSelector(
+    (state) => state.match.selectedTeamfight
+  );
 
-  const { id } = useParams(); // ← Get player ID from URL
+  useEffect(() => {
+    if (selectedTeamfight && teamfightRef.current) {
+      teamfightRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [selectedTeamfight]);
+
+  return (
+    <VerticalStack>
+      <MatchTeamfights id={id} />
+      <div ref={teamfightRef}>
+        <TeamfightDetails id={id} />
+      </div>
+    </VerticalStack>
+  );
+}
+
+function Match() {
+  const { id } = useParams();
 
   return (
     <Provider store={store}>
       <Background />
       <PageContainer>
-        <VerticalStack>
-          <MatchTeamfights id={id}/>
-          <TeamfightDetails id={id}/>
-        </VerticalStack>
-        {/* <MatchDetails /> */}
+        <MatchContent id={id} />
       </PageContainer>
     </Provider>
   );

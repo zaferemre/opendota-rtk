@@ -2,14 +2,13 @@ import React from "react";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import styled from "styled-components";
-import PlayerSearchForm from "../components/PlayerSearchForm";
 import PlayerSearchBar from "../components/PlayerSearchBar";
-import Header from "../components/Header";
+import Header from "../components/Header/index";
 // Background Blur
 const Background = styled.div`
   position: fixed;
   inset: 0;
-  background-image: url("/wallpaper.png");
+  background-image: url("/background.jpg");
   background-size: cover;
   background-position: center;
   filter: brightness(0.8);
@@ -44,7 +43,6 @@ function Home() {
       <Background />
       <PageContainer>
         <Header />
-        <PlayerSearchForm />
         <PlayerSearchBar />
       </PageContainer>
     </Provider>
