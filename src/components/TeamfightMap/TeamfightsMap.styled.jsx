@@ -1,18 +1,5 @@
 import styled from "styled-components";
 
-const MapWrapper = styled.div`
-  position: relative;
-  width: ${MAP_DISPLAY_SIZE}px;
-  height: ${MAP_DISPLAY_SIZE}px;
-  background-image: url(${MAP_IMAGE});
-  background-size: cover;
-  background-position: center;
-  border: 2px solid #333;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 16px;
-`;
-
 const Marker = styled.div`
   position: absolute;
   width: 10px;
